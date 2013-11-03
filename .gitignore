@@ -1,10 +1,30 @@
+# Script output
 binaries
+output
+
+# Mac OS X sucks
 .DS_Store
+
+# Build output
 Debug
 Release
 *.pch
+*.idb
+*.pdb
 *.ncb
+obj
+symbols
+lib
 DLL-Debug
 DLL-Release
 Win32_LIB_Debug
 Win32_LIB_Release
+
+# OpenVice base images
+openvice-base-*.zip
+
+# Compiled dlls
+xmll.dll
+libcurl.dll
+pcre3.dll
+sqlite3.dll
