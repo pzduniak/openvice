@@ -182,7 +182,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="shlwapi.lib psapi.lib UnRAR.lib Version.lib d3d9.lib"
-				OutputFile="c:\program files\MTA San Andreas 1.3\mta\loader.dll"
+				OutputFile="..\..\..\release\MTA\loader.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\..\vendor\unrar\build\unrardll32\$(ConfigurationName)"
