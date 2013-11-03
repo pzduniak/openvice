@@ -539,10 +539,10 @@ SString CInstallManager::_ProcessLayoutChecks ( void )
     }
 
     // Check reg key exists
-    {
-        if ( GetRegistryValue ( "", "Last Install Location" ).empty () )
-            ShowLayoutError ( "[Registry key not present]" );   // Can't find reg key
-    }
+    //{
+    //    if ( GetRegistryValue ( "", "Last Install Location" ).empty () )
+    //        ShowLayoutError ( "[Registry key not present]" );   // Can't find reg key
+    //}
 
     // Check data dir writable
     {

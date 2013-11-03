@@ -74,7 +74,6 @@ public:
     void                ChangeCommunityState            ( bool bIn, const std::string& strUsername );
     bool                HasStarted                      ( void ) { return m_bStarted; };
 
-    void                SetNewsHeadline                 ( int iIndex, const SString& strHeadline, const SString& strDate, bool bIsNew );
     void                OnEscapePressedOffLine          ( void );
 
     static void         StaticWantsToDisconnectCallBack ( void* pData, uint uiButton );
@@ -109,7 +108,6 @@ private:
     CGUIStaticImage*    m_pLatestNews;
     CGUIStaticImage*    m_pFiller;
     CGUIStaticImage*    m_pFiller2;
-    CGUIStaticImage*    m_pVersion;
     CGUIStaticImage*    m_pMenuArea;
 
     CGUIScrollPane*     m_pCanvas;
@@ -165,11 +163,6 @@ private:
     int                 m_iMoveStartPos;
     int                 m_iMoveTargetPos;
     unsigned long       m_ulMoveStartTick;
-
-    CGUILabel*          m_pNewsItemLabels[CORE_MTA_NEWS_ITEMS];
-    CGUILabel*          m_pNewsItemShadowLabels[CORE_MTA_NEWS_ITEMS];
-    CGUILabel*          m_pNewsItemDateLabels[CORE_MTA_NEWS_ITEMS];
-    CGUILabel*          m_pNewsItemNEWLabels[CORE_MTA_NEWS_ITEMS];
 
     // Fade states
     enum eFadeStates {

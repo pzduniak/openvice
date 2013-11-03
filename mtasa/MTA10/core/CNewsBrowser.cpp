@@ -131,15 +131,6 @@ void CNewsBrowser::CreateHeadlines ( void )
 {
     InitNewsItemList ();
     bool bNewsUpdated = GetApplicationSettingInt ( "news-updated" ) == 1;
-
-    uint i;
-    // Process each news item
-    for ( i = 0; i < m_NewsitemList.size () ; i++ )
-        CCore::GetSingleton ().GetLocalGUI ()->GetMainMenu ()->SetNewsHeadline ( i, m_NewsitemList[i].strHeadline, m_NewsitemList[i].strDate, i < 1 && bNewsUpdated );
-
-    // Clear unused slots
-    for ( ; i < 3 ; i++ )
-        CCore::GetSingleton ().GetLocalGUI ()->GetMainMenu ()->SetNewsHeadline ( i, "", "", false );
 }
 
 

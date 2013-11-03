@@ -773,6 +773,10 @@ bool CServerBrowser::IsVisible ( void )
 //
 bool CServerBrowser::CanBrowseVersion ( const SString& strVersion )
 {
+    // If not 1.3v then don't show
+    if ( strVersion != "1.3v" )
+        return false;
+
     // If in deny list, then no
     if ( MapContains ( m_blockedVersionMap, strVersion ) )
         return false;
