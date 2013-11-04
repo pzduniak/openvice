@@ -1,6 +1,7 @@
 # Script output
 binaries
 output
+server
 
 # Mac OS X sucks
 .DS_Store
@@ -23,6 +24,7 @@ Win32_LIB_Release
 
 # OpenVice base images
 openvice-base-*.zip
+openvice-*.7z
 
 # Compiled dlls
 xmll.dll

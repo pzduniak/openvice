@@ -927,20 +927,20 @@ void CVersionUpdater::InitPrograms ()
         ADDINST (   _End );
 
         ADDLABL ( "dload:" );
-        ADDINST (   _DialogUpdateQuestion );                    // Show "Update available" dialog
-        ADDCOND ( "if QuestionResponse.!Yes goto end" );        // If user says 'No', then goto end:
-        ADDINST (   _DialogDownloading );                       // Show "Downloading..." message
-        ADDINST (   _UseProvidedURLs );
-        ADDINST (   _StartDownload );                        // Fetch update binary from update mirror
-        ADDINST (   _ProcessPatchFileDownload );
-        ADDINST (   _DialogUpdateResult );                      // Show "Update ok/failed" message
+        //ADDINST (   _DialogUpdateQuestion );                    // Show "Update available" dialog
+        //ADDCOND ( "if QuestionResponse.!Yes goto end" );        // If user says 'No', then goto end:
+        //ADDINST (   _DialogDownloading );                       // Show "Downloading..." message
+        //ADDINST (   _UseProvidedURLs );
+        //ADDINST (   _StartDownload );                        // Fetch update binary from update mirror
+        //ADDINST (   _ProcessPatchFileDownload );
+        //ADDINST (   _DialogUpdateResult );                      // Show "Update ok/failed" message
         ADDINST (   _End );
 
         ADDLABL ( "silentdload:" );
-        ADDINST (   _UseProvidedURLs );
-        ADDINST (   _StartDownload );                        // Fetch update binary from update mirror
-        ADDINST (   _ProcessPatchFileDownload );
-        ADDINST (   _QUpdateResult );                           // Maybe set OnRestartCommand
+        //ADDINST (   _UseProvidedURLs );
+        //ADDINST (   _StartDownload );                        // Fetch update binary from update mirror
+        //ADDINST (   _ProcessPatchFileDownload );
+        //ADDINST (   _QUpdateResult );                           // Maybe set OnRestartCommand
         ADDINST (   _End );
 
         ADDLABL ( "noupdate:" );
