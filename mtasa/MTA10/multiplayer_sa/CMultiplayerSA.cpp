@@ -484,6 +484,40 @@ void HOOK_CObject_ProcessDamage ();
 void HOOK_CObject_ProcessBreak ();
 void HOOK_CObject_ProcessCollision ();
 
+#define patch(a,b) MemCpyFast((void*)a,b,sizeof(b))
+#define memadd(num,arr) dwAlloc+=num;cBytes=(char*)&dwAlloc;for(int i=0;i<4;i++)arr[i]=cBytes[i]
+
+void SetTimedObjects(int iTimedObjects)
+{
+	DWORD dwAlloc = (DWORD) malloc((0x24*iTimedObjects)+4);
+	if(dwAlloc)
+	{
+		memset((LPVOID)dwAlloc,0x00,(0x24*iTimedObjects)+4);
+		for(DWORD i=dwAlloc+4;i<(dwAlloc+4+(0x24*iTimedObjects));i+=0x24)
+		{
+			*(BYTE*) i = 0xB0;
+			*(BYTE*) (i+1) = 0xBC;
+			*(BYTE*) (i+2) = 0x85;
+			*(BYTE*) (i+10) = 0xFF;
+			*(BYTE*) (i+11) = 0xFF;
+			*(BYTE*) (i+34) = 0xFF;
+			*(BYTE*) (i+35) = 0xFF;
+		}
+		char* cBytes = (char*)&dwAlloc;
+		BYTE bTimedObjects[] = { cBytes[0], cBytes[1], cBytes[2], cBytes[3] };
+		patch(0x4C66B1,bTimedObjects);
+		patch(0x4C66C2,bTimedObjects);
+		patch(0x84BC51,bTimedObjects);
+		patch(0x856261,bTimedObjects);
+		patch(0x4C683B,bTimedObjects);
+		memadd(4,bTimedObjects);
+		patch(0x4C6464,bTimedObjects);
+		patch(0x4C66BD,bTimedObjects);
+		cBytes = (char*)&iTimedObjects;
+		BYTE pushTimedObjects[] = { 0x68, cBytes[0], cBytes[1], cBytes[2], cBytes[3] };
+		patch(0x4C58A5,pushTimedObjects);
+	}
+}
 
 CMultiplayerSA::CMultiplayerSA()
 {
@@ -526,41 +560,6 @@ CMultiplayerSA::CMultiplayerSA()
     m_bHeatHazeCustomized = false;
 }
 
-#define patch(a,b) MemCpyFast((void*)a,b,sizeof(b))
-#define memadd(num,arr) dwAlloc+=num;cBytes=(char*)&dwAlloc;for(int i=0;i<4;i++)arr[i]=cBytes[i]
-
-void SetTimedObjects(int iTimedObjects)
-{
-	DWORD dwAlloc = (DWORD) malloc((0x24*iTimedObjects)+4);
-	if(dwAlloc)
-	{
-		memset((LPVOID)dwAlloc,0x00,(0x24*iTimedObjects)+4);
-		for(DWORD i=dwAlloc+4;i<(dwAlloc+4+(0x24*iTimedObjects));i+=0x24)
-		{
-			*(BYTE*) i = 0xB0;
-			*(BYTE*) (i+1) = 0xBC;
-			*(BYTE*) (i+2) = 0x85;
-			*(BYTE*) (i+10) = 0xFF;
-			*(BYTE*) (i+11) = 0xFF;
-			*(BYTE*) (i+34) = 0xFF;
-			*(BYTE*) (i+35) = 0xFF;
-		}
-		char* cBytes = (char*)&dwAlloc;
-		BYTE bTimedObjects[] = { cBytes[0], cBytes[1], cBytes[2], cBytes[3] };
-		patch(0x4C66B1,bTimedObjects);
-		patch(0x4C66C2,bTimedObjects);
-		patch(0x84BC51,bTimedObjects);
-		patch(0x856261,bTimedObjects);
-		patch(0x4C683B,bTimedObjects);
-		memadd(4,bTimedObjects);
-		patch(0x4C6464,bTimedObjects);
-		patch(0x4C66BD,bTimedObjects);
-		cBytes = (char*)&iTimedObjects;
-		BYTE pushTimedObjects[] = { 0x68, cBytes[0], cBytes[1], cBytes[2], cBytes[3] };
-		patch(0x4C58A5,pushTimedObjects);
-	}
-}
-
 void CMultiplayerSA::InitHooks()
 {
     InitKeysyncHooks();
@@ -585,8 +584,6 @@ void CMultiplayerSA::InitHooks()
     // STOP IT TRYING TO LOAD THE SCM
     MemPut < BYTE > ( 0x468EB5, 0xEB );
     MemPut < BYTE > ( 0x468EB6, 0x32 );
-
-    SetTimedObjects(350);
 
     HookInstall(HOOKPOS_FindPlayerCoors, (DWORD)HOOK_FindPlayerCoors, 6);
     HookInstall(HOOKPOS_FindPlayerCentreOfWorld, (DWORD)HOOK_FindPlayerCentreOfWorld, 6);
@@ -723,12 +720,14 @@ void CMultiplayerSA::InitHooks()
     // Disable GTA setting g_bGotFocus to false when we minimize
     MemSet ( (void *)ADDR_GotFocus, 0x90, pGameInterface->GetGameVersion () == VERSION_EU_10 ? 6 : 10 );
 
-    // NTAuthority's fix - makes the game more responsive
+    // OpenVice patch
+    // Makes the game more responsive
     MemSet ( (void *)0x53E94D, 0x90, 2 );
+    // SetTimedObjects
+    SetTimedObjects(350);
 
     // Increase double link limit from 3200 ro 8000
     MemPut < int > ( 0x00550F82, 8000 );
-
 
     // Disable GTA being able to call CAudio::StopRadio ()
     // Well this isn't really CAudio::StopRadio, it's some global class

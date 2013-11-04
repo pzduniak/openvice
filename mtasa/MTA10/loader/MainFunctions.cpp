@@ -527,7 +527,7 @@ void CheckDataFiles( void )
                                      ,"MTA\\bass.dll"
                                      ,"MTA\\bass_fx.dll"
                                      ,"MTA\\tags.dll"
-                                     ,"MTA\\sa.dat"
+                                     //,"MTA\\sa.dat" // openvice does not like this file
                                      ,"MTA\\pthreadVC2.dll"
                                      ,"MTA\\XInput9_1_0_mta.dll"
                                      ,"MTA\\vea.dll"

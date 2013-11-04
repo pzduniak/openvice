@@ -6,6 +6,7 @@ output
 .DS_Store
 
 # Build output
+release
 Debug
 Release
 *.pch

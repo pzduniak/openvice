@@ -26,11 +26,12 @@ namespace SharedUtil
     void SetInitialVirtualProtect( void )
     {
         DWORD oldProt;
-        VirtualProtect((LPVOID)0x4C0000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
+        VirtualProtect((LPVOID)0x4C0000, 0x7000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x502000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x50A000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x50B000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x533000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
+        VirtualProtect((LPVOID)0x596000, 0x2000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x60D000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x609000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x60F000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
@@ -39,6 +40,8 @@ namespace SharedUtil
         VirtualProtect((LPVOID)0x6AE000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x729000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
         VirtualProtect((LPVOID)0x742000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
+        VirtualProtect((LPVOID)0x84B000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
+        VirtualProtect((LPVOID)0x856000, 0x1000, PAGE_EXECUTE_READWRITE, &oldProt);
     }
 
     // Returns true if pAddr is in slow mem area
